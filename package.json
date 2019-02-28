@@ -1,0 +1,39 @@
+{
+  "name": "better-electron-template",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=development electron-webpack dev",
+    "compile": "electron-webpack",
+    "dist": "yarn compile && electron-builder",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "test": "standard"
+  },
+  "electronWebpack": {
+    "title": "My Project",
+    "main": {
+      "webpackConfig": "custom.webpack.additions.js"
+    },
+    "renderer": {
+      "webpackConfig": "custom.webpack.additions.js"
+    }
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "electron-settings": "^3.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "source-map-support": "^0.5.10"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "devtron": "^1.4.0",
+    "electron": "4.0.1",
+    "electron-builder": "20.38.4",
+    "electron-webpack": "^2.6.2",
+    "standard": "^12.0.1",
+    "webpack": "4.28.4"
+  }
+}
