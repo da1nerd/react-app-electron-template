@@ -11,9 +11,6 @@
   },
   "electronWebpack": {
     "title": "My Project",
-    "main": {
-      "webpackConfig": "custom.webpack.additions.js"
-    },
     "renderer": {
       "webpackConfig": "custom.webpack.additions.js"
     }

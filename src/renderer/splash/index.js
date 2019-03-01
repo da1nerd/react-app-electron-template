@@ -1,5 +1,6 @@
 import { getWindowId } from '../../common/windows'
 
+// TODO: this breaks the main window styles :(
 require('./splash.css')
 
 if (getWindowId() === 'splash') {
