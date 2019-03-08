@@ -10,6 +10,7 @@
     "react-scripts": "2.1.8"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "start": "concurrently 'yarn react-start' 'wait-on http://localhost:3000/ && cross-env NODE_ENV=development yarn electron-start'",
     "build": "yarn react-build && cp package.json build/ && yarn electron-build",
@@ -36,6 +37,7 @@
     "cross-env": "^5.2.0",
     "electron": "^4.0.7",
     "electron-packager": "^13.1.1",
+    "source-map-explorer": "^1.7.0",
     "wait-on": "^3.2.0"
   }
 }
