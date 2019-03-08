@@ -1,23 +1,20 @@
-'use strict'
-
-import { app } from 'electron'
-import settings from 'electron-settings'
-import * as path from 'path'
-import { format as formatUrl } from 'url'
-import {
+const path = require('path');
+const {app} = require('electron');
+// import settings from 'electron-settings';
+const {
   createWindow,
   defineWindow,
-  isDevelopment,
   getWindow
-} from '../common/windows'
+} = require('./electronWindows');
 
-const MAIN_WINDOW_ID = 'main'
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+const MAIN_WINDOW_ID = 'main';
 
 /**
  * Creates a window for the main application.
  * @returns {Window}
  */
-function createMainWindow () {
+function createMainWindow() {
   const windowOptions = {
     width: 980,
     minWidth: 980,
@@ -30,8 +27,8 @@ function createMainWindow () {
       nodeIntegration: true
     },
     title: app.getName()
-  }
-  return createWindow(MAIN_WINDOW_ID, windowOptions)
+  };
+  return createWindow(MAIN_WINDOW_ID, windowOptions);
 }
 
 /**
@@ -39,7 +36,7 @@ function createMainWindow () {
  * This uses a dedicated webpack entry point so it loads fast.
  * @returns {Electron.BrowserWindow}
  */
-function createSplashWindow () {
+function createSplashWindow() {
   const windowOptions = {
     width: 400,
     height: 200,
@@ -52,65 +49,55 @@ function createSplashWindow () {
     show: true,
     center: true,
     title: app.name
-  }
-  const window = defineWindow('splash', windowOptions)
+  };
+  const window = defineWindow('splash', windowOptions);
 
-  if (isDevelopment) {
-    window.loadURL(
-      `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/splash.html`)
+  if (IS_DEVELOPMENT) {
+    window.loadURL('http://localhost:3000/splash.html');
   } else {
-    window.loadURL(formatUrl({
-      pathname: path.join(__dirname, `splash.html`),
-      protocol: 'file',
-      slashes: true
-    }))
+    window.loadURL(`file://${path.join(__dirname, '/splash.html')}`);
   }
 
-  return window
+  return window;
 }
 
 // prevent multiple instances of the main window
-app.requestSingleInstanceLock()
+app.requestSingleInstanceLock();
 
 app.on('second-instance', () => {
-  const window = getWindow(MAIN_WINDOW_ID)
+  const window = getWindow(MAIN_WINDOW_ID);
   if (window) {
     if (window.isMinimized()) {
-      window.restore()
+      window.restore();
     }
-    window.focus()
+    window.focus();
   }
-})
+});
 
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
   // on macOS it is common for applications to stay open until the user explicitly quits
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
-})
+});
 
 app.on('activate', () => {
   // on macOS it is common to re-create a window even after all windows have been closed
-  const window = getWindow(MAIN_WINDOW_ID)
+  const window = getWindow(MAIN_WINDOW_ID);
   if (window === null) {
-    createMainWindow()
+    createMainWindow();
   }
-})
+});
 
 // create main BrowserWindow with a splash screen when electron is ready
 app.on('ready', () => {
-  // some demo settings
-  settings.set('app', {
-    name: app.getName()
-  })
-
-  const splashWindow = createSplashWindow()
-  const mainWindow = createMainWindow()
+  const splashWindow = createSplashWindow();
+  const mainWindow = createMainWindow();
   mainWindow.once('ready-to-show', () => {
     setTimeout(() => {
-      splashWindow.hide()
-      mainWindow.show()
-    }, 300)
-  })
-})
+      splashWindow.hide();
+      mainWindow.show();
+    }, 300);
+  });
+});
