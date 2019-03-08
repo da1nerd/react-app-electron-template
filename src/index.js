@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import { registerLogHandler, electronHandler } from './logger'
+import { registerLogHandler, createElectronHandler } from './logger'
 
-// add basic logging
-registerLogHandler(electronHandler)
+// forward logs to electron's main thread
+registerLogHandler(createElectronHandler('log-event'))
+
+console.log('hello world')
 
 ReactDOM.render(<App/>, document.getElementById('root'))
 

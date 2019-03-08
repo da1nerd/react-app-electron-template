@@ -50,12 +50,12 @@ export const registerLogHandler = (handler) => {
 }
 
 /**
- * A handler that emits electron events to the main thread
- * @param level
- * @param args
+ * Creates log handler that emits electron events to the main thread
+ * @param eventName - the name of the electron event that will be emitted.
+ * @returns {Function}
  */
-export function electronHandler (level, ...args) {
-  remote.app.emit('report-log', {
+export const createElectronHandler = eventName => (level, ...args) => {
+  remote.app.emit(eventName, {
     level,
     args
   })
@@ -100,6 +100,8 @@ function bindConsole () {
       global.console[level] = hijackLog(level)
     }
   }
+  // TRICKY: attach to the console for convenience in certain corner cases.
+  global.console.original = globalConsole
 }
 
 /**
