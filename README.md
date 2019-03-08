@@ -24,7 +24,6 @@ BROWSER=none
 ```
 
 That's the extent of the electron integration. The app does not need to be ejected or configured further to work.
-This means you can get started right away and continue receive updates for [Create React App](https://github.com/facebook/create-react-app) by updating your `react-scripts` to the latest version.
 
 ## Available Scripts
 
