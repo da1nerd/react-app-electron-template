@@ -1,5 +1,5 @@
 const path = require('path');
-const {app} = require('electron');
+const {app, Menu} = require('electron');
 // import settings from 'electron-settings';
 const {
   createWindow,
@@ -43,7 +43,7 @@ function createSplashWindow() {
     resizable: false,
     autoHideMenuBar: true,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: false
     },
     frame: false,
     show: true,
@@ -60,6 +60,41 @@ function createSplashWindow() {
 
   return window;
 }
+
+const menuTemplate = [
+  {
+    label: 'Window',
+    role: 'window',
+    submenu: [
+      {
+        label: 'Minimize',
+        accelerator: 'CmdOrCtrl+M',
+        role: 'minimize'
+      },
+      {
+        label: 'Reload',
+        accelerator: 'CmdOrCtrl+R',
+        click: function (item, focusedWindow) {
+          if (focusedWindow) {
+            focusedWindow.reload()
+          }
+        }
+      },
+      {
+        label: 'Toggle Developer Tools',
+        accelerator:
+          process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
+        click: function (item, focusedWindow) {
+          if (focusedWindow) {
+            focusedWindow.webContents.toggleDevTools()
+          }
+        }
+      }
+    ]
+  }
+]
+const menu = Menu.buildFromTemplate(menuTemplate)
+Menu.setApplicationMenu(menu)
 
 // prevent multiple instances of the main window
 app.requestSingleInstanceLock();
@@ -96,7 +131,7 @@ app.on('ready', () => {
   const mainWindow = createMainWindow();
   mainWindow.once('ready-to-show', () => {
     setTimeout(() => {
-      splashWindow.hide();
+      splashWindow.close();
       mainWindow.show();
     }, 300);
   });
