@@ -1,5 +1,4 @@
-import fs from 'fs'
-import path from 'path'
+import {remote} from 'electron';
 
 /**
  * The console.log levels that will be intercepted.
@@ -51,14 +50,15 @@ export const registerLogHandler = (handler) => {
 }
 
 /**
- * This is a VERY simple file handler that just dumps everything to ./console.log
+ * A handler that emits electron events to the main thread
  * @param level
  * @param args
  */
-export function simpleFileHandler (level, ...args) {
-  fs.appendFileSync(path.normalize('console.log'),
-    `\n${new Date().toTimeString()} ${level}: ${args}`,
-    { encoding: 'utf-8' })
+export function electronHandler (level, ...args) {
+  remote.app.emit('report-log', {
+    level,
+    args
+  })
 }
 
 /**

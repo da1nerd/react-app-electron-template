@@ -1,3 +1,4 @@
+const fs = require("fs")
 const path = require('path');
 const {app, Menu} = require('electron');
 const {
@@ -145,4 +146,11 @@ app.on('ready', () => {
       mainWindow.show();
     }, 300);
   });
+});
+
+// receive log events from the render thread
+app.on('report-log', args => {
+  const logPath = path.normalize(`console.log`);
+  const payload = `\n${new Date().toTimeString()} ${args.level}: ${args.args}`;
+  fs.appendFileSync(logPath, payload, { encoding: 'utf-8' })
 });

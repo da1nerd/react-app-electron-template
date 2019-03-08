@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import { registerLogHandler, simpleFileHandler } from './logger'
+import { registerLogHandler, electronHandler } from './logger'
 
 // add basic logging
-registerLogHandler(simpleFileHandler)
+registerLogHandler(electronHandler)
 
 ReactDOM.render(<App/>, document.getElementById('root'))
 
