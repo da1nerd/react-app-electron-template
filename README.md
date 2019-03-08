@@ -13,6 +13,7 @@ Inside `package.json` are some important configurations required to make electro
 * `"main": "main.js"` connects the electron entry point
 * `"homepage": "./"` ensures all resources are linked relative to the working directory so electron can find them.
 * `start`, `build`, `electron-start`, and `electron-build` have been carefully configured for running and building electron.
+* `craco` is used in place of `react-scripts` to provide custom configuration without ejecting the app.
 
 Normally running the development server with `yarn start` would open a tab in your browser.
 Since that doesn't make much sense for an electron app it can be rather annoying.

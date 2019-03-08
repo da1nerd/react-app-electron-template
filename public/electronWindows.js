@@ -1,18 +1,27 @@
-const {BrowserWindow} = require('electron');
-const path = require('path');
+const { BrowserWindow } = require('electron')
+const path = require('path')
 
-const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 
 // global reference to windows (necessary to prevent windows from being garbage collected)
-const windows = [];
+const windows = []
 
 /**
  * Returns the window with the id
  * @param {string} windowId
  * @returns {Electron.BrowserWindow}
  */
-function getWindow(windowId) {
-  return windows[windowId];
+function getWindow (windowId) {
+  return windows[windowId]
+}
+
+/**
+ * Closes all of the windows
+ */
+function closeAllWindows () {
+  for (const window of windows) {
+    window.close()
+  }
 }
 
 /**
@@ -20,15 +29,15 @@ function getWindow(windowId) {
  * This will look at the real html window and check for a window id.
  * @returns {string|null}
  */
-function getWindowId() {
+function getWindowId () {
   if (window) {
     for (const arg of window.process.argv) {
       if (/--window-id/.test(arg)) {
-        return arg.split('=')[1];
+        return arg.split('=')[1]
       }
     }
   }
-  return null;
+  return null
 }
 
 /**
@@ -39,12 +48,12 @@ function getWindowId() {
  * @param {object} [options={}] - the electron window options
  * @returns {Electron.BrowserWindow}
  */
-function defineWindow(windowId, options = {}) {
+function defineWindow (windowId, options = {}) {
   if (!options.webPreferences) {
-    options.webPreferences = {};
+    options.webPreferences = {}
   }
   if (!options.webPreferences.additionalArguments) {
-    options.webPreferences.additionalArguments = [];
+    options.webPreferences.additionalArguments = []
   }
   const windowOptions = {
     ...options,
@@ -54,16 +63,24 @@ function defineWindow(windowId, options = {}) {
         ...options.webPreferences.additionalArguments,
         `--window-id=${windowId}`]
     }
-  };
-  const window = new BrowserWindow(windowOptions);
+  }
+  const window = new BrowserWindow(windowOptions)
 
   window.on('closed', () => {
-    windows[windowId] = null;
-  });
+    windows[windowId] = null
+  })
 
   // register window
-  windows[windowId] = window;
-  return window;
+  windows[windowId] = window
+
+  // attach crash listener
+  window.webContents.on('crashed', (event, killed) => {
+    console.error(
+      `Window ${windowId} ${killed ? 'was killed' : 'has crashed'}.`, event)
+    windows[windowId] = null
+  })
+
+  return window
 }
 
 /**
@@ -73,28 +90,29 @@ function defineWindow(windowId, options = {}) {
  * @param {string} windowId - the unique window id. This determines which `.js` file will be loaded
  * @param {object} [options={}] - the electron window options
  */
-function createWindow(windowId, options = {}) {
-  const window = defineWindow(windowId, options);
+function createWindow (windowId, options = {}) {
+  const window = defineWindow(windowId, options)
 
   if (IS_DEVELOPMENT) {
-    window.loadURL('http://localhost:3000');
+    window.loadURL('http://localhost:3000')
   } else {
-    window.loadURL(`file://${path.join(__dirname, '/index.html')}`);
+    window.loadURL(`file://${path.join(__dirname, '/index.html')}`)
   }
 
   window.webContents.on('devtools-opened', () => {
-    window.focus();
+    window.focus()
     setImmediate(() => {
-      window.focus();
-    });
-  });
+      window.focus()
+    })
+  })
 
-  return window;
+  return window
 }
 
 module.exports = {
   getWindow,
   getWindowId,
   defineWindow,
-  createWindow
-};
+  createWindow,
+  closeAllWindows
+}

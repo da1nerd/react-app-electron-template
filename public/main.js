@@ -1,10 +1,10 @@
 const path = require('path');
 const {app, Menu} = require('electron');
-// import settings from 'electron-settings';
 const {
   createWindow,
   defineWindow,
-  getWindow
+  getWindow,
+  closeAllWindows,
 } = require('./electronWindows');
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
@@ -61,6 +61,15 @@ function createSplashWindow() {
   return window;
 }
 
+// attach process logger
+
+process.on('uncaughtException', (err) => {
+  console.error(err);
+  closeAllWindows();
+});
+
+// build menu
+
 const menuTemplate = [
   {
     label: 'Window',
@@ -97,6 +106,7 @@ const menu = Menu.buildFromTemplate(menuTemplate)
 Menu.setApplicationMenu(menu)
 
 // prevent multiple instances of the main window
+
 app.requestSingleInstanceLock();
 
 app.on('second-instance', () => {

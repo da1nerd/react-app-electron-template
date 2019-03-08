@@ -5,6 +5,7 @@
   "main": "main.js",
   "homepage": "./",
   "dependencies": {
+    "@craco/craco": "^3.5.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"
@@ -16,9 +17,9 @@
     "build": "yarn react-build && cp package.json build/ && yarn electron-build",
     "electron-start": "electron .",
     "electron-build": "electron-packager ./build --out=dist",
-    "react-start": "react-scripts start",
-    "react-build": "react-scripts build",
-    "test": "react-scripts test"
+    "react-start": "craco start",
+    "react-build": "craco build",
+    "test": "craco test"
   },
   "eslintConfig": {
     "extends": "react-app"
