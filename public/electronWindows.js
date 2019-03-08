@@ -77,10 +77,6 @@ function createWindow(windowId, options = {}) {
   const window = defineWindow(windowId, options);
 
   if (IS_DEVELOPMENT) {
-    window.webContents.openDevTools();
-  }
-
-  if (IS_DEVELOPMENT) {
     window.loadURL('http://localhost:3000');
   } else {
     window.loadURL(`file://${path.join(__dirname, '/index.html')}`);
