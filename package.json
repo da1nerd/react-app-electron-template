@@ -10,7 +10,7 @@
     "react-scripts": "2.1.8"
   },
   "scripts": {
-    "start": "concurrently 'yarn react-start' 'wait-on http://localhost:3000/ && NODE_ENV=development yarn electron-start'",
+    "start": "concurrently 'yarn react-start' 'wait-on http://localhost:3000/ && cross-env NODE_ENV=development yarn electron-start'",
     "build": "yarn react-build && cp package.json build/ && yarn electron-build",
     "electron-start": "electron .",
     "electron-build": "electron-packager ./build --out=dist",
@@ -30,6 +30,7 @@
   ],
   "devDependencies": {
     "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
     "electron": "^4.0.7",
     "electron-packager": "^13.1.1",
     "wait-on": "^3.2.0"
