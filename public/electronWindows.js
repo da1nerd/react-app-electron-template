@@ -1,19 +1,18 @@
-import { BrowserWindow } from 'electron'
-import { format as formatUrl } from 'url'
-import * as path from 'path'
+const {BrowserWindow} = require('electron');
+const path = require('path');
 
-export const isDevelopment = process.env.NODE_ENV === 'development'
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 // global reference to windows (necessary to prevent windows from being garbage collected)
-const windows = []
+const windows = [];
 
 /**
  * Returns the window with the id
  * @param {string} windowId
  * @returns {Electron.BrowserWindow}
  */
-export function getWindow (windowId) {
-  return windows[windowId]
+function getWindow(windowId) {
+  return windows[windowId];
 }
 
 /**
@@ -21,15 +20,15 @@ export function getWindow (windowId) {
  * This will look at the real html window and check for a window id.
  * @returns {string|null}
  */
-export function getWindowId () {
+function getWindowId() {
   if (window) {
     for (const arg of window.process.argv) {
       if (/--window-id/.test(arg)) {
-        return arg.split('=')[1]
+        return arg.split('=')[1];
       }
     }
   }
-  return null
+  return null;
 }
 
 /**
@@ -40,12 +39,12 @@ export function getWindowId () {
  * @param {object} [options={}] - the electron window options
  * @returns {Electron.BrowserWindow}
  */
-export function defineWindow (windowId, options = {}) {
+function defineWindow(windowId, options = {}) {
   if (!options.webPreferences) {
-    options.webPreferences = {}
+    options.webPreferences = {};
   }
   if (!options.webPreferences.additionalArguments) {
-    options.webPreferences.additionalArguments = []
+    options.webPreferences.additionalArguments = [];
   }
   const windowOptions = {
     ...options,
@@ -55,16 +54,16 @@ export function defineWindow (windowId, options = {}) {
         ...options.webPreferences.additionalArguments,
         `--window-id=${windowId}`]
     }
-  }
-  const window = new BrowserWindow(windowOptions)
+  };
+  const window = new BrowserWindow(windowOptions);
 
   window.on('closed', () => {
-    windows[windowId] = null
-  })
+    windows[windowId] = null;
+  });
 
   // register window
-  windows[windowId] = window
-  return window
+  windows[windowId] = window;
+  return window;
 }
 
 /**
@@ -74,29 +73,28 @@ export function defineWindow (windowId, options = {}) {
  * @param {string} windowId - the unique window id. This determines which `.js` file will be loaded
  * @param {object} [options={}] - the electron window options
  */
-export function createWindow (windowId, options = {}) {
-  const window = defineWindow(windowId, options)
+function createWindow(windowId, options = {}) {
+  const window = defineWindow(windowId, options);
 
-  if (isDevelopment) {
-    window.webContents.openDevTools()
-  }
-
-  if (isDevelopment) {
-    window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
+  if (IS_DEVELOPMENT) {
+    window.loadURL('http://localhost:3000');
   } else {
-    window.loadURL(formatUrl({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file',
-      slashes: true
-    }))
+    window.loadURL(`file://${path.join(__dirname, '/index.html')}`);
   }
 
   window.webContents.on('devtools-opened', () => {
-    window.focus()
+    window.focus();
     setImmediate(() => {
-      window.focus()
-    })
-  })
+      window.focus();
+    });
+  });
 
-  return window
+  return window;
 }
+
+module.exports = {
+  getWindow,
+  getWindowId,
+  defineWindow,
+  createWindow
+};

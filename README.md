@@ -1,69 +1,93 @@
-# better-electron-template
-> A bare minimum project structure to get started developing with [`electron-webpack`](https://github.com/electron-userland/electron-webpack). Based on [`electron-webpack-quick-start`](https://github.com/electron-userland/electron-webpack-quick-start).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Thanks to the power of `electron-webpack` this template comes packed with...
+## Electron Support
 
-* Use of [`webpack-dev-server`](https://github.com/webpack/webpack-dev-server) for development
-* HMR for both `renderer` and `main` processes
-* Use of [`babel-preset-env`](https://github.com/babel/babel-preset-env) that is automatically configured based on your `electron` version
-* Use of [`electron-builder`](https://github.com/electron-userland/electron-builder) to package and build a distributable electron application
+This project has been configured to work with electron.
 
-Make sure to check out [`electron-webpack`'s documentation](https://webpack.electron.build/) for more details.
+* `public/main.js` is the electron entry point.
+* `main.js` is an alias to `public/main.js` and provides an entry point for electron when running the development server.
+* `public/electronWindows.js` provides some utilities for creating electron windows.
+* `public/splash.html` is a sample splash screen configured to display while the app loads.
 
-## Getting Started
-Simply clone down this repository, install dependencies, and get started on your application.
+Inside `package.json` are some important configurations required to make electron work:
+* `"main": "main.js"` connects the electron entry point
+* `"homepage": "./"` ensures all resources are linked relative to the working directory so electron can find them.
+* `start`, `build`, `electron-start`, and `electron-build` have been carefully configured for running and building electron.
 
-The use of the [yarn](https://yarnpkg.com/) package manager is **strongly** recommended, as opposed to using `npm`.
+Normally running the development server with `yarn start` would open a tab in your browser.
+Since that doesn't make much sense for an electron app it can be rather annoying.
+Therefore the new browser tab has been disabled by the addition of a `.env` file.
 
-```bash
-# create a directory of your choice, and copy template using curl
-mkdir new-electron-webpack-project && cd new-electron-webpack-project
-curl -fsSL https://github.com/neutrinog/better-electron-template/archive/master.tar.gz | tar -xz --strip-components 1
-
-# or copy template using git clone
-git clone https://github.com/neutrinog/better-electron-template.git
-cd better-electron-template
-rm -rf .git
-
-# install dependencies
-yarn
+```
+// .env
+BROWSER=none
 ```
 
-### Development Scripts
+That's the extent of the electron integration. The app does not need to be ejected or configured further to work.
 
-```bash
-# run application in development mode
-yarn dev
+## Available Scripts
 
-# compile source code and create webpack output
-yarn compile
+In the project directory, you can run:
 
-# `yarn compile` & create build with electron-builder
-yarn dist
+### `npm start`
 
-# `yarn compile` & create unpacked build with electron-builder
-yarn dist:dir
-```
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Modifications
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-I've made a few additions to make this more helpful for complicate applications.
+### `npm test`
 
-#### Splash Window
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-There's a separate entry point for the splash window.
-This allows the splash screen to display quickly without having to load _all_ of the resources.
-You can adjust styles and add markup as desired.
+### `npm run build`
 
-#### React Windows
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Except for the splash screen all windows are routed through a single `.html` file.
-These windows will display unique content based on their id.
-For example, the `main` window will load from `src/renderer/windows/main.js`.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-This saves us from a lot of legwork:
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-* avoids the need to configure additional webpack entry points
-* avoids needing a lot of add-once-and-forget `.html` files.
-* avoids having to wire up HMR (Hot Module Replacement) for each window.
-* better window performance. Because this is a single webpack entry point, all of the resources will be loaded the first time (while the splash window is displaying).
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
