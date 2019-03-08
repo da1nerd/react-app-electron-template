@@ -1,5 +1,5 @@
 {
-  "name": "better-electron-template",
+  "name": "react-app-electron-template",
   "version": "0.1.0",
   "private": true,
   "main": "main.js",
