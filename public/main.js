@@ -1,11 +1,11 @@
-const fs = require("fs")
+const fs = require('fs');
 const path = require('path');
 const {app, Menu} = require('electron');
 const {
   createWindow,
   defineWindow,
   getWindow,
-  closeAllWindows,
+  closeAllWindows
 } = require('./electronWindows');
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
@@ -84,9 +84,9 @@ const menuTemplate = [
       {
         label: 'Reload',
         accelerator: 'CmdOrCtrl+R',
-        click: function (item, focusedWindow) {
+        click: function(item, focusedWindow) {
           if (focusedWindow) {
-            focusedWindow.reload()
+            focusedWindow.reload();
           }
         }
       },
@@ -94,17 +94,17 @@ const menuTemplate = [
         label: 'Toggle Developer Tools',
         accelerator:
           process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
-        click: function (item, focusedWindow) {
+        click: function(item, focusedWindow) {
           if (focusedWindow) {
-            focusedWindow.webContents.toggleDevTools()
+            focusedWindow.webContents.toggleDevTools();
           }
         }
       }
     ]
   }
-]
-const menu = Menu.buildFromTemplate(menuTemplate)
-Menu.setApplicationMenu(menu)
+];
+const menu = Menu.buildFromTemplate(menuTemplate);
+Menu.setApplicationMenu(menu);
 
 // prevent multiple instances of the main window
 
@@ -154,9 +154,9 @@ app.on('log-event', args => {
   const payload = `\n${new Date().toTimeString()} ${args.level}: ${args.args}`;
   const stats = fs.statSync(logPath);
   let writer = fs.appendFileSync;
-  if(stats.size / 1000000.0 > 1) {
+  if (stats.size / 1000000.0 > 1) {
     // overwrite entire file if larger than 1mb
     writer = fs.writeFileSync;
   }
-  writer(logPath, payload, { encoding: 'utf-8' })
+  writer(logPath, payload, {encoding: 'utf-8'});
 });
