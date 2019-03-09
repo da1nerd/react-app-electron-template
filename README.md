@@ -1,3 +1,9 @@
+# UPDATE: I've created a Yeoman generator
+
+The generator is at [generator-react-app-electron](https://github.com/neutrinog/generator-react-app-electron).
+
+---
+
 This electron project template is bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Electron Configuration
