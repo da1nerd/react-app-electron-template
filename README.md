@@ -26,6 +26,29 @@ BROWSER=none
 
 That's the extent of the electron integration. The app does not need to be ejected or configured further to work.
 
+## Features
+
+Beyond the standard create-react-app template are a few additional features.
+
+### Splash page
+
+A sample splash page is provided to give the user some semblance of progress while the app loads.
+You can easily customize it, or disable it if needed.
+
+### Log handler
+
+A lightweight logger has been included that hijacks `console` and `window.onerror`.
+All intercepted logs are passed to electron's main thread where they are recorded in a `console.log` file.
+Just continue logging to the console like always and they will be automatically saved for later reference.
+In order to keep things tidy the log file is truncated after it grows larger than 1mb.
+
+### Component prototyping with [Storybook](https://storybook.js.org/)
+
+Prototyping components in an isolated environment is critical to well designed components. Not only does it save the headache of navigating all over the app just to see your updated component, but it also forces you to develop loosly coupled components.
+Building a collection of "stories" also makes it easier to do some simple acceptence testing.
+
+Details are in the scripts section below.
+
 ## Available Scripts
 
 In the project directory, you can run:
