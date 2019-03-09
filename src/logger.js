@@ -100,8 +100,6 @@ function bindConsole () {
       global.console[level] = hijackLog(level)
     }
   }
-  // TRICKY: attach to the console for convenience in certain corner cases.
-  global.console.original = globalConsole
 }
 
 /**

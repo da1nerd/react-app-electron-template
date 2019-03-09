@@ -150,10 +150,13 @@ app.on('ready', () => {
 
 // receive log events from the render thread
 app.on('log-event', args => {
-  if(console.original) {
-    console.original.log("Received log", args);
-  }
   const logPath = path.normalize(`console.log`);
   const payload = `\n${new Date().toTimeString()} ${args.level}: ${args.args}`;
-  fs.appendFileSync(logPath, payload, { encoding: 'utf-8' })
+  const stats = fs.statSync(logPath);
+  let writer = fs.appendFileSync;
+  if(stats.size / 1000000.0 > 1) {
+    // overwrite entire file if larger than 1mb
+    writer = fs.writeFileSync;
+  }
+  writer(logPath, payload, { encoding: 'utf-8' })
 });
