@@ -6,6 +6,7 @@
   "homepage": "./",
   "dependencies": {
     "@craco/craco": "^3.5.0",
+    "copyfiles": "^2.1.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"
@@ -15,6 +16,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "start": "concurrently 'yarn react-start' 'wait-on http://localhost:3000/ && cross-env NODE_ENV=development yarn electron-start'",
     "build": "yarn react-build && cp package.json build/ && yarn electron-build",
+    "build": "yarn react-build && copyfiles package.json build/ && yarn electron-build",
     "electron-start": "electron .",
     "electron-build": "electron-packager ./build --out=dist",
     "react-start": "craco start",
