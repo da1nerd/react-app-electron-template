@@ -13,7 +13,7 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "start": "concurrently 'yarn react-start' 'wait-on http://localhost:3000/ && cross-env NODE_ENV=development yarn electron-start'",
+    "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000/ && cross-env NODE_ENV=development yarn electron-start\"",
     "build": "yarn react-build && cp package.json build/ && yarn electron-build",
     "build": "yarn react-build && copyfiles package.json build/ && yarn electron-build",
     "electron-start": "electron .",
