@@ -6,7 +6,6 @@
   "homepage": "./",
   "dependencies": {
     "@craco/craco": "^3.5.0",
-    "copyfiles": "^2.1.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"
@@ -37,6 +36,7 @@
     "@storybook/react": "^5.0.1",
     "babel-loader": "^8.0.5",
     "concurrently": "^4.1.0",
+    "copyfiles": "^2.1.0",
     "cross-env": "^5.2.0",
     "electron": "^4.0.7",
     "electron-packager": "^13.1.1",
