@@ -95,6 +95,20 @@ function createWindow(windowId, options = {}) {
 
   if (IS_DEVELOPMENT) {
     window.loadURL('http://localhost:3000');
+
+    // install some developer tools
+    try {
+      const {
+        default: installExtension,
+        REACT_DEVELOPER_TOOLS
+      } = require('electron-devtools-installer');
+
+      installExtension(REACT_DEVELOPER_TOOLS).catch(e => {
+        console.error('Could not install React developer tools', e);
+      });
+    } catch (e) {
+      console.error('Could not install developer extensions', e);
+    }
   } else {
     window.loadURL(`file://${path.join(__dirname, '/index.html')}`);
   }

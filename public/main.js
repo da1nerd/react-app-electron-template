@@ -18,9 +18,9 @@ const MAIN_WINDOW_ID = 'main';
 function createMainWindow() {
   const windowOptions = {
     width: 980,
-    minWidth: 980,
+    minWidth: 425,
     height: 580,
-    minHeight: 580,
+    minHeight: 425,
     show: false,
     center: true,
     autoHideMenuBar: true,
