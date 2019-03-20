@@ -1,6 +1,6 @@
-# UPDATE: I've created a Yeoman generator
+# react-app-electron-template
 
-The generator is at [generator-react-app-electron](https://github.com/neutrinog/generator-react-app-electron).
+This electron project template is bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ---
 
@@ -47,6 +47,13 @@ A lightweight logger has been included that hijacks `console` and `window.onerro
 All intercepted logs are passed to electron's main thread where they are recorded in a `console.log` file.
 Just continue logging to the console like always and they will be automatically saved for later reference.
 In order to keep things tidy the log file is truncated after it grows larger than 1mb.
+
+### Developer Extensions
+
+When ran in development mode (`NODE_ENV=development`) [React Developer Tools](https://github.com/facebook/react-devtools)
+is installed to improve your development experience.
+
+> NOTE: you may need to restart your application once before all the tools show up.
 
 ### Component prototyping with [Storybook](https://storybook.js.org/)
 
