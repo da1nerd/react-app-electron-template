@@ -8,7 +8,10 @@ import {createElectronHandler, registerLogHandler} from './logger';
 // forward logs to electron's main thread
 registerLogHandler(createElectronHandler('log-event'));
 
-console.log('hello world');
+// log versions
+console.log('Electron', process.versions.electron);
+console.log('Chrome', process.versions.chrome);
+console.log('Node', process.versions.node);
 
 ReactDOM.render(<App/>, document.getElementById('root'));
 
