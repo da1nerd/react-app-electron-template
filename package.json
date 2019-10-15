@@ -5,10 +5,10 @@
   "main": "main.js",
   "homepage": "./",
   "dependencies": {
-    "@craco/craco": "^3.5.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "@craco/craco": "^5.5.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-scripts": "^3.2.0"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
@@ -31,16 +31,16 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@storybook/react": "^5.0.1",
-    "babel-loader": "^8.0.5",
-    "concurrently": "^4.1.0",
-    "copyfiles": "^2.1.0",
-    "cross-env": "^5.2.0",
-    "electron": "^4.0.7",
+    "@babel/core": "^7.6.4",
+    "@storybook/react": "^5.2.4",
+    "babel-loader": "^8.0.6",
+    "concurrently": "^5.0.0",
+    "copyfiles": "^2.1.1",
+    "cross-env": "^6.0.3",
+    "electron": "^6.0.12",
     "electron-devtools-installer": "^2.2.4",
-    "electron-packager": "^13.1.1",
-    "source-map-explorer": "^1.7.0",
-    "wait-on": "^3.2.0"
+    "electron-packager": "^14.0.6",
+    "source-map-explorer": "^2.1.0",
+    "wait-on": "^3.3.0"
   }
 }
