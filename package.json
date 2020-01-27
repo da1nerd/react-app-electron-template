@@ -5,10 +5,10 @@
   "main": "main.js",
   "homepage": "./",
   "dependencies": {
-    "@craco/craco": "^5.5.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "react-scripts": "^3.2.0"
+    "@craco/craco": "^5.6.3",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "^3.3.0"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
@@ -31,16 +31,21 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@storybook/react": "^5.2.4",
+    "@babel/core": "^7.8.3",
+    "@storybook/react": "^5.3.9",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^13.5.0",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
     "babel-loader": "^8.0.6",
-    "concurrently": "^5.0.0",
-    "copyfiles": "^2.1.1",
-    "cross-env": "^6.0.3",
-    "electron": "^6.0.12",
+    "concurrently": "^5.0.2",
+    "copyfiles": "^2.2.0",
+    "cross-env": "^7.0.0",
+    "electron": "^7.1.10",
     "electron-devtools-installer": "^2.2.4",
-    "electron-packager": "^14.0.6",
-    "source-map-explorer": "^2.1.0",
-    "wait-on": "^3.3.0"
+    "electron-packager": "^14.2.0",
+    "source-map-explorer": "^2.2.2",
+    "typescript": "^3.7.5",
+    "wait-on": "^4.0.0"
   }
 }

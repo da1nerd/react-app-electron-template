@@ -2,6 +2,11 @@
 
 This electron project template is bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Typescript
+Typescript comes pre-enabled. Just rename a `.js` file to `.ts` and restart your development server.
+If a file contains [jsx](https://reactjs.org/docs/introducing-jsx.html) you must give it the file extension `.tsx`
+Also, if you start using Typescript, you'll see a new file `src/react-app-env.d.ts`. For an explanation of that file see [typescript and create-react-app .env](https://dev.to/louisgv/typescript-and-create-react-app-env-136e) 
+
 ## Electron Configuration
 
 This project has been configured to work with electron.
