@@ -14,11 +14,12 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000/ && cross-env NODE_ENV=development yarn electron-start\"",
-    "build": "yarn react-build && copyfiles package.json build/ && yarn electron-build",
+    "build": "yarn react-build && yarn build-main && copyfiles package.json build/ && yarn electron-build",
     "electron-start": "electron .",
     "electron-build": "electron-packager ./build --out=dist",
     "react-start": "craco start",
     "react-build": "craco build",
+    "build-main": "webpack --config electron/webpack.config.js",
     "test": "craco test"
   },
   "eslintConfig": {
@@ -46,6 +47,7 @@
     "electron-packager": "^14.2.0",
     "source-map-explorer": "^2.2.2",
     "typescript": "^3.7.5",
-    "wait-on": "^4.0.0"
+    "wait-on": "^4.0.0",
+    "webpack-cli": "^3.3.11"
   }
 }
