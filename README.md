@@ -56,6 +56,8 @@ In order to keep things tidy the log file is truncated after it grows larger tha
 
 ### Developer Extensions
 
+> NOTE: The developer tools is currently disabled until I can figure out how to get it working with the latest version of electron.
+
 When ran in development mode (`NODE_ENV=development`) [React Developer Tools](https://github.com/facebook/react-devtools)
 is installed to improve your development experience.
 
@@ -65,6 +67,8 @@ is installed to improve your development experience.
 
 Prototyping components in an isolated environment is critical to well designed components. Not only does it save the headache of navigating all over the app just to see your updated component, but it also forces you to develop loosly coupled components.
 Building a collection of "stories" also makes it easier to do some simple acceptence testing.
+
+Some sample stories are located in `src/stories/`.
 
 Details are in the scripts section below.
 
@@ -92,10 +96,10 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production and places the compiled files int the `dist` folder.
+This process correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
+The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
