@@ -1,4 +1,4 @@
-import {remote} from 'electron';
+import {ipcRenderer} from 'electron';
 
 /**
  * The console.log levels that will be intercepted.
@@ -55,7 +55,7 @@ export const registerLogHandler = (handler) => {
  * @returns {Function}
  */
 export const createElectronHandler = eventName => (level, ...args) => {
-  remote.app.emit(eventName, {
+  ipcRenderer.invoke(eventName, {
     level,
     args
   });

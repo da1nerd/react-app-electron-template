@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const {app, Menu} = require('electron');
+const {app, Menu, ipcMain} = require('electron');
+
 const {
   createWindow,
   defineWindow,
@@ -25,7 +26,8 @@ function createMainWindow() {
     center: true,
     autoHideMenuBar: true,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false
     },
     title: app.getName()
   };
@@ -148,8 +150,7 @@ app.on('ready', () => {
   });
 });
 
-// receive log events from the render thread
-app.on('log-event', args => {
+ipcMain.handle('log-event', async (event, args) => {
   try {
     const logPath = path.normalize(`console.log`);
     const payload = `\n${new Date().toTimeString()} ${args.level}: ${args.args}`;

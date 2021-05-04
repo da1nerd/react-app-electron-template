@@ -103,9 +103,10 @@ function createWindow(windowId, options = {}) {
         REACT_DEVELOPER_TOOLS
       } = require('electron-devtools-installer');
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch(e => {
-        console.error('Could not install React developer tools', e);
-      });
+      // TODO: fix this
+      // installExtension(REACT_DEVELOPER_TOOLS).catch(e => {
+      //   console.error('Could not install React developer tools', e);
+      // });
     } catch (e) {
       console.error('Could not install developer extensions', e);
     }
