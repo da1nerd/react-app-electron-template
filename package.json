@@ -12,7 +12,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook": "start-storybook -p 6006 -s public",
     "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000/ && cross-env NODE_ENV=development yarn electron-start\"",
     "build": "yarn react-build && yarn build-main && copyfiles package.json build/ && yarn electron-build",
     "electron-start": "electron .",
@@ -20,12 +20,23 @@
     "react-start": "craco start",
     "react-build": "craco build",
     "build-main": "webpack --config electron/webpack.config.js",
-    "test": "craco test"
+    "test": "craco test",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": [
@@ -38,6 +49,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/node-logger": "^6.2.9",
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9",
     "@types/jest": "^26.0.23",
